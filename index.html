@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>CLOI Commands</title>
+</head>
+<body>
+  <h1>CLOI Commands</h1>
+  <p>Use the buttons below to copy the password blob to clipboard in the format <code>비밀번호:BASE64</code>.</p>
+  <label for="password">Password:</label>
+  <input id="password" type="password">
+  <button id="encrypt">Encrypt & Copy</button>
+  <pre id="pubkey" style="display:none">-----BEGIN PUBLIC KEY-----
+MIIBojANBgkqhkiG9w0BAQEFAAOCAY8AMIIBigKCAYEA0/+gLy7s2VqLGRorzvhH
+h8SyAlkKL59fWlCJEndrDA/KLEtGvyYYkX0o+AYs9ZXCtqlqrpgMMGThaXQmIQnM
+Ltcg51/xG/Nu1pCDZpLUG4WZq29vgWccqZnilRvJX7TbNI38nm8l/C8kIw3DYG6P
+PX6Jq4lLDbrQ9h0YrhUpXEEM8X5f1ch8bJInfl6uqjkStfPLgL4DpOsiur+dd+RJ
+GOj4L+/bKUuIRsBYAaTS4ZYS/t3uN5SvWbw0/caBJVPcDdAVU8F50Pw21WRAWbDz
+RwRniqoA1QvvsNgoAmZlofaPCQDP0rl0MXeRjnm6htw83IYavvCybumcRcOdkroU
+rCFcFoRd/8uxGaRONHtCU8I++iqUIcuzzNRYV5+E8xprQgY6OD0farAmtoAYX6jj
+qm9ln8ApYHEKtLPB/jwQWUm1zFh6wlihxaXat8fL+fuXIsTTrV8tGAz4zuzcu0HV
+JnMKYhRd8Ja+TOurla+nO8ucZ3TvJjkB8zI/cCYs1EPfAgMBAAE=
+-----END PUBLIC KEY-----</pre>
+  <script>
+    async function importPubKey(pem) {
+      // fetch the public key section
+      const b64 = pem.replace(/-----BEGIN PUBLIC KEY-----|-----END PUBLIC KEY-----|\n/g, '');
+      const raw = Uint8Array.from(atob(b64), c=>c.charCodeAt(0));
+      return await window.crypto.subtle.importKey('spki', raw.buffer, {name: 'RSA-OAEP', hash: 'SHA-256'}, false, ['encrypt']);
+    }
+    async function encryptMessage(pubKey, msg) {
+      const enc = new TextEncoder().encode(msg);
+      const res = await window.crypto.subtle.encrypt({name:'RSA-OAEP'}, pubKey, enc);
+      const b64 = btoa(String.fromCharCode(...new Uint8Array(res)));
+      return b64;
+    }
+    document.getElementById('encrypt').addEventListener('click', async ()=>{
+      const pw = document.getElementById('password').value;
+      if(!pw) { alert('enter password'); return; }
+      const ts = new Date().toISOString();
+      const obj = {password: pw, ts: ts};
+      const msg = JSON.stringify(obj);
+      const pub = document.getElementById('pubkey').textContent;
+      try {
+        const k = await importPubKey(pub);
+        const b64 = await encryptMessage(k, msg);
+        const blob = '비밀번호:' + b64;
+        await navigator.clipboard.writeText(blob);
+        alert('Copied to clipboard: 비밀번호:BASE64');
+      } catch(e){
+        alert('Encryption failed: ' + e);
+      }
+    });
+  </script>
+</body>
+</html>
