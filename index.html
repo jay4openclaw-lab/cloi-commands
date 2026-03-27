@@ -1,8 +1,14 @@
 <!doctype html>
-<html><head><meta charset="utf-8"><title>CLOI Commands</title></head><body>
-<h1>CLOI Commands</h1>
-<p>Click copy to copy token (token visible). Then send copied token to Telegram as-is.</p>
-<pre style="display:none">-----BEGIN PUBLIC KEY-----
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>CLOI Commands</title>
+</head>
+<body>
+  <h1>CLOI Commands</h1>
+  <p>Click copy to copy token (token visible). Then send copied token to Telegram as-is.</p>
+  <p>Need to encrypt a password first? <a href="/cloi-commands/encrypt.html">Encrypt password (opens encrypt page)</a></p>
+  <pre style="display:none">-----BEGIN PUBLIC KEY-----
 MIIBojANBgkqhkiG9w0BAQEFAAOCAY8AMIIBigKCAYEA0/+gLy7s2VqLGRorzvhH
 h8SyAlkKL59fWlCJEndrDA/KLEtGvyYYkX0o+AYs9ZXCtqlqrpgMMGThaXQmIQnM
 Ltcg51/xG/Nu1pCDZpLUG4WZq29vgWccqZnilRvJX7TbNI38nm8l/C8kIw3DYG6P
@@ -15,9 +21,11 @@ JnMKYhRd8Ja+TOurla+nO8ucZ3TvJjkB8zI/cCYs1EPfAgMBAAE=
 -----END PUBLIC KEY-----
 </pre>
 <ul>
-<li>Debug status - <code id="debugctl_status_tok">TOKEN-debugctl_status</code> <button onclick="navigator.clipboard.writeText(document.getElementById('debugctl_status_tok').textContent)">Copy</button></li>
-<li>Enable debug verbose - <code id="debugctl_enable_verbose_tok">TOKEN-debugctl_enable_verbose</code> <button onclick="navigator.clipboard.writeText(document.getElementById('debugctl_enable_verbose_tok').textContent)">Copy</button></li>
-<li>Warmup test - <code id="warmup_test_tok">TOKEN-warmup_test</code> <button onclick="navigator.clipboard.writeText(document.getElementById('warmup_test_tok').textContent)">Copy</button></li>
-<li>Regenerate error report - <code id="regen_error_report_tok">TOKEN-regen_error_report</code> <button onclick="navigator.clipboard.writeText(document.getElementById('regen_error_report_tok').textContent)">Copy</button></li>
-<li>Disable Notion writes - <code id="notion_disable_tok">TOKEN-notion_disable</code> <button onclick="navigator.clipboard.writeText(document.getElementById('notion_disable_tok').textContent)">Copy</button></li>
-</ul></body></html>
+  <li>Debug status - <code id="debugctl_status_tok">TOKEN-debugctl_status</code> <button onclick="navigator.clipboard.writeText(document.getElementById('debugctl_status_tok').textContent)">Copy</button></li>
+  <li>Enable debug verbose - <code id="debugctl_enable_verbose_tok">TOKEN-debugctl_enable_verbose</code> <button onclick="navigator.clipboard.writeText(document.getElementById('debugctl_enable_verbose_tok').textContent)">Copy</button></li>
+  <li>Warmup test - <code id="warmup_test_tok">TOKEN-warmup_test</code> <button onclick="navigator.clipboard.writeText(document.getElementById('warmup_test_tok').textContent)">Copy</button></li>
+  <li>Regenerate error report - <code id="regen_error_report_tok">TOKEN-regen_error_report</code> <button onclick="navigator.clipboard.writeText(document.getElementById('regen_error_report_tok').textContent)">Copy</button></li>
+  <li>Disable Notion writes - <code id="notion_disable_tok">TOKEN-notion_disable</code> <button onclick="navigator.clipboard.writeText(document.getElementById('notion_disable_tok').textContent)">Copy</button></li>
+</ul>
+</body>
+</html>
