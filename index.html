@@ -16,12 +16,6 @@
   <p>토큰 목록 — Copy 버튼을 눌러 토큰을 클립보드에 복사합니다. 토큰 문자열은 페이지에서 숨겨져 있습니다.</p>
   <ul>
     <li>
-      <strong>Debug status</strong>
-      <div class="desc">디버그 캡처 설정과 상태를 조회합니다. (enabled / level / sample_rate / expires 등)</div>
-      <button class="copy-btn" data-token="TOKEN-debugctl_status" onclick="navigator.clipboard.writeText(this.dataset.token).then(()=>alert('토큰이 복사되었습니다'))">Copy</button>
-    </li>
-
-    <li>
       <strong>Debug Mode Change</strong>
       <div class="desc">디버그 모드를 변경합니다. Level(minimal / verbose / full), Sample Rate(10~100%), auto_disable_hours(6~24)를 선택하여 적용할 수 있습니다.</div>
       <button class="copy-btn" data-token="TOKEN-debugctl_enable_verbose" onclick="navigator.clipboard.writeText(this.dataset.token).then(()=>alert('토큰이 복사되었습니다'))">Copy</button>
@@ -33,18 +27,12 @@
       <button class="copy-btn" data-token="TOKEN-warmup_test" onclick="navigator.clipboard.writeText(this.dataset.token).then(()=>alert('토큰이 복사되었습니다'))">Copy</button>
     </li>
 
-    <li>
-      <strong>Regenerate error report</strong>
-      <div class="desc">오류 리포트 페이지(latest_errors.html)를 재생성하여 GitHub Pages에 푸시합니다.</div>
-      <button class="copy-btn" data-token="TOKEN-regen_error_report" onclick="navigator.clipboard.writeText(this.dataset.token).then(()=>alert('토큰이 복사되었습니다'))">Copy</button>
+        <li>
+      <strong>Publish Webtoons (from Google Sheets)</strong>
+      <div class="desc">구글 시트에서 웹툰 목록을 읽어 정리된 HTML을 생성하고 GitHub Pages에 게시합니다.</div>
+      <button class="copy-btn" data-token="TOKEN-publish_webtoons" onclick="navigator.clipboard.writeText(this.dataset.token).then(()=>alert('토큰이 복사되었습니다'))">Copy</button>
     </li>
-
-    <li>
-      <strong>Disable Notion writes</strong>
-      <div class="desc">로컬에서 Notion 쓰기를 즉시 차단하는 플래그를 설정합니다 (NOTION_DISABLED).</div>
-      <button class="copy-btn" data-token="TOKEN-notion_disable" onclick="navigator.clipboard.writeText(this.dataset.token).then(()=>alert('토큰이 복사되었습니다'))">Copy</button>
-    </li>
-  </ul>
+</ul>
 
   <p style="margin-top:24px; font-size:0.9em; color:#666">암호를 암호화하려면 <a href="/cloi-commands/encrypt.html">암호화 페이지로 이동</a>하세요.</p>
 </body>
