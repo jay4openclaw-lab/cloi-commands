@@ -1,0 +1,33 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>WebtoonList</title>
+<style>body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial;padding:20px} .tabs{margin:10px 0} .tab{display:inline-block;padding:8px 12px;border:1px solid #ccc;border-bottom:none;cursor:pointer;margin-right:6px} .active{background:#f3f3f3;font-weight:600} .list{border:1px solid #ccc;padding:12px}</style>
+</head><body>
+<h1>WebtoonList</h1>
+<div class="tabs">
+<button class="tab" data-day="mon">Mon</button>
+<button class="tab" data-day="tue">Tue</button>
+<button class="tab" data-day="wed">Wed</button>
+<button class="tab" data-day="thu">Thu</button>
+<button class="tab" data-day="fri">Fri</button>
+<button class="tab" data-day="sat">Sat</button>
+<button class="tab" data-day="sun">Sun</button>
+</div>
+<div id="content" class="list"></div>
+<script>
+function dayKeyFromIndex(i){return ['mon','tue','wed','thu','fri','sat','sun'][i%7]}
+function renderDay(day, data){
+  var out='';
+  if(!data[day] || data[day].length==0){ out='<p>(No items)</p>'; }
+  else{ out='<ul>'; for(var it of data[day]){ out+='<li><a href="'+it.url+'" target="_blank">'+it.title+'</a></li>'; } out+='</ul>' }
+  document.getElementById('content').innerHTML = out;
+}
+
+var DATA={"mon": [], "tue": [], "wed": [], "thu": [], "fri": [], "sat": [], "sun": []};
+// set default day to today
+var today = new Date();
+var dayidx = (today.getDay()+6)%7; // make Mon=0
+var dayKey = ['mon','tue','wed','thu','fri','sat','sun'][dayidx];
+for(var b of document.querySelectorAll('.tab')){ if(b.dataset.day==dayKey) b.classList.add('active'); b.addEventListener('click', function(e){ document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active')); e.target.classList.add('active'); renderDay(e.target.dataset.day, DATA); }); }
+renderDay(dayKey, DATA);
+</script>
+</body></html>
