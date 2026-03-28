@@ -30,4 +30,5 @@ var dayKey = ['mon','tue','wed','thu','fri','sat','sun'][dayidx];
 for(var b of document.querySelectorAll('.tab')){ if(b.dataset.day==dayKey) b.classList.add('active'); b.addEventListener('click', function(e){ document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active')); e.target.classList.add('active'); renderDay(e.target.dataset.day, DATA); }); }
 renderDay(dayKey, DATA);
 </script>
+<!-- redeploy-comment: 2026-03-28T19:36:17.450365+09:00 -->
 </body></html>
