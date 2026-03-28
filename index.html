@@ -1,39 +1,26 @@
 <!doctype html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <title>CLOI Commands</title>
-  <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; padding: 24px; }
-    li { margin: 12px 0; }
-    .desc { color: #444; font-size: 0.95em; margin-top:6px; }
-    .token-hidden { display:none; }
-    button.copy-btn { margin-left: 8px; }
-  </style>
-</head>
+<head><meta charset="utf-8"><title>CLOI Commands</title></head>
 <body>
-  <h1>CLOI Commands <a href="/cloi-commands/encrypt.html" style="font-size:smaller">(암호화 페이지)</a></h1>
-  <p>토큰 목록 — Copy 버튼을 눌러 토큰을 클립보드에 복사합니다. 토큰 문자열은 페이지에서 숨겨져 있습니다.</p>
-  <ul>
-    <li>
-      <strong>Debug Mode Change</strong>
-      <div class="desc">디버그 모드를 변경합니다. Level(minimal / verbose / full), Sample Rate(10~100%), auto_disable_hours(6~24)를 선택하여 적용할 수 있습니다.</div>
-      <button class="copy-btn" data-token="TOKEN-debugctl_enable_verbose" onclick="navigator.clipboard.writeText(this.dataset.token).then(()=>alert('토큰이 복사되었습니다'))">Copy</button>
-    </li>
+<h1>CLOI Commands <a href="/cloi-commands/encrypt.html" style="font-size:smaller">(암호화 페이지)</a></h1>
+<p>Click copy to copy token (token visible). Then send copied token to Telegram as-is.</p>
+<pre style="display:none">
+-----BEGIN PUBLIC KEY-----
+MIIBojANBgkqhkiG9w0BAQEFAAOCAY8AMIIBigKCAYEA0/+gLy7s2VqLGRorzvhH
+h8SyAlkKL59fWlCJEndrDA/KLEtGvyYYkX0o+AYs9ZXCtqlqrpgMMGThaXQmIQnM
+Ltcg51/xG/Nu1pCDZpLUG4WZq29vgWccqZnilRvJX7TbNI38nm8l/C8kIw3DYG6P
+PX6Jq4lLDbrQ9h0YrhUpXEEM8X5f1ch8bJInfl6uqjkStfPLgL4DpOsiur+dd+RJ
+GOj4L+/bKUuIRsBYAaTS4ZYS/t3uN5SvWbw0/caBJVPcDdAVU8F50Pw21WRAWbDz
+RwRniqoA1QvvsNgoAmZlofaPCQDP0rl0MXeRjnm6htw83IYavvCybumcRcOdkroU
+rCFcFoRd/8uxGaRONHtCU8I++iqUIcuzzNRYV5+E8xprQgY6OD0farAmtoAYX6jj
+qm9ln8ApYHEKtLPB/jwQWUm1zFh6wlihxaXat8fL+fuXIsTTrV8tGAz4zuzcu0HV
+JnMKYhRd8Ja+TOurla+nO8ucZ3TvJjkB8zI/cCYs1EPfAgMBAAE=
+-----END PUBLIC KEY-----
 
-    <li>
-      <strong>Warmup test</strong>
-      <div class="desc">로컬 게이트웨이/런타임 헬스 체크(웜업)를 실행하여 서비스 준비 상태를 확인합니다.</div>
-      <button class="copy-btn" data-token="TOKEN-warmup_test" onclick="navigator.clipboard.writeText(this.dataset.token).then(()=>alert('토큰이 복사되었습니다'))">Copy</button>
-    </li>
-
-        <li>
-      <strong>Publish Webtoons (from Google Sheets)</strong>
-      <div class="desc">구글 시트에서 웹툰 목록을 읽어 정리된 HTML을 생성하고 GitHub Pages에 게시합니다.</div>
-      <button class="copy-btn" data-token="TOKEN-publish_webtoons" onclick="navigator.clipboard.writeText(this.dataset.token).then(()=>alert('토큰이 복사되었습니다'))">Copy</button>
-    </li>
+</pre>
+<ul>
+<li>Debug Mode Change - <code id="debugctl_enable_verbose_tok">4jtJdImJ6kGBiR_C8nLst1Lrc4JcsHNc</code> <button onclick="navigator.clipboard.writeText(document.getElementById('debugctl_enable_verbose_tok').textContent)">Copy</button></li>
+<li>Warmup test - <code id="warmup_test_tok">TnqqI_TvNaXHfDM7xOPobxvv7vtWqKzj</code> <button onclick="navigator.clipboard.writeText(document.getElementById('warmup_test_tok').textContent)">Copy</button></li>
+<li>Publish Webtoons - <code id="publish_webtoons_tok">Iq9ha1dDTfzekU3VsGn5e9jjEK6Be2EN</code> <button onclick="navigator.clipboard.writeText(document.getElementById('publish_webtoons_tok').textContent)">Copy</button></li>
 </ul>
-
-  <p style="margin-top:24px; font-size:0.9em; color:#666">암호를 암호화하려면 <a href="/cloi-commands/encrypt.html">암호화 페이지로 이동</a>하세요.</p>
-</body>
-</html>
+</body></html>
