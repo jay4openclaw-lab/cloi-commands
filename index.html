@@ -1,26 +1,77 @@
 <!doctype html>
-<html>
-<head><meta charset="utf-8"><title>CLOI Commands</title></head>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <title>CLOI Commands</title>
+  <style>
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial;padding:20px;max-width:900px}
+    .cmd{border:1px solid #e5e7eb;padding:12px;border-radius:8px;margin-bottom:10px}
+    .meta{color:#6b7280;font-size:0.95em}
+    button{margin-left:8px}
+    .token-value{font-family:SFMono-Regular,Menlo,monospace;background:#f3f4f6;padding:4px 8px;border-radius:6px}
+  </style>
+</head>
 <body>
-<h1>CLOI Commands <a href="/cloi-commands/encrypt.html" style="font-size:smaller">(암호화 페이지)</a></h1>
-<p>Click copy to copy token (token visible). Then send copied token to Telegram as-is.</p>
-<pre style="display:none">
------BEGIN PUBLIC KEY-----
-MIIBojANBgkqhkiG9w0BAQEFAAOCAY8AMIIBigKCAYEA0/+gLy7s2VqLGRorzvhH
-h8SyAlkKL59fWlCJEndrDA/KLEtGvyYYkX0o+AYs9ZXCtqlqrpgMMGThaXQmIQnM
-Ltcg51/xG/Nu1pCDZpLUG4WZq29vgWccqZnilRvJX7TbNI38nm8l/C8kIw3DYG6P
-PX6Jq4lLDbrQ9h0YrhUpXEEM8X5f1ch8bJInfl6uqjkStfPLgL4DpOsiur+dd+RJ
-GOj4L+/bKUuIRsBYAaTS4ZYS/t3uN5SvWbw0/caBJVPcDdAVU8F50Pw21WRAWbDz
-RwRniqoA1QvvsNgoAmZlofaPCQDP0rl0MXeRjnm6htw83IYavvCybumcRcOdkroU
-rCFcFoRd/8uxGaRONHtCU8I++iqUIcuzzNRYV5+E8xprQgY6OD0farAmtoAYX6jj
-qm9ln8ApYHEKtLPB/jwQWUm1zFh6wlihxaXat8fL+fuXIsTTrV8tGAz4zuzcu0HV
-JnMKYhRd8Ja+TOurla+nO8ucZ3TvJjkB8zI/cCYs1EPfAgMBAAE=
------END PUBLIC KEY-----
+  <h1>CLOI Commands <a href="/cloi-commands/encrypt.html" style="font-size:smaller">(암호화 페이지)</a></h1>
+  <p class="meta">토큰은 페이지에 바로 표시되지 않도록 숨겨져 있습니다. <strong>복사</strong> 버튼을 누르면 내부적으로 디코드 후 클립보드에 복사됩니다.</p>
 
-</pre>
-<ul>
-<li>Debug Mode Change - <code id="debugctl_enable_verbose_tok">4jtJdImJ6kGBiR_C8nLst1Lrc4JcsHNc</code> <button onclick="navigator.clipboard.writeText(document.getElementById('debugctl_enable_verbose_tok').textContent)">Copy</button></li>
-<li>Warmup test - <code id="warmup_test_tok">TnqqI_TvNaXHfDM7xOPobxvv7vtWqKzj</code> <button onclick="navigator.clipboard.writeText(document.getElementById('warmup_test_tok').textContent)">Copy</button></li>
-<li>Publish Webtoons - <code id="publish_webtoons_tok">Iq9ha1dDTfzekU3VsGn5e9jjEK6Be2EN</code> <button onclick="navigator.clipboard.writeText(document.getElementById('publish_webtoons_tok').textContent)">Copy</button></li>
-</ul>
-</body></html>
+  <div class="cmd">
+    <h3>Debug Mode Change</h3>
+    <p class="meta">설명: 로깅 레벨을 변경해 상세 디버그 출력을 활성화합니다 (일시적).</p>
+    <div>
+      <button onclick="copyToken('tok-debug')">토큰 복사</button>
+      <button onclick="revealToken('tok-debug', this)">토큰 표시</button>
+      <span id="tok-debug" data-token="NGp0SmRJbUo2a0dCaVJfQzhuTHN0MUxyYzRKY3NITmM=" class="token-value" style="margin-left:12px">••••••••••••••••</span>
+    </div>
+  </div>
+
+  <div class="cmd">
+    <h3>Warmup test</h3>
+    <p class="meta">설명: 런타임/서비스를 깨우는 간단한 워밍 테스트를 실행합니다.</p>
+    <div>
+      <button onclick="copyToken('tok-warmup')">토큰 복사</button>
+      <button onclick="revealToken('tok-warmup', this)">토큰 표시</button>
+      <span id="tok-warmup" data-token="VG5xcUlfVHZOYVhIZkRNN3hPUG9ieHZ2N3Z0V3FLemo=" class="token-value" style="margin-left:12px">••••••••••••••••</span>
+    </div>
+  </div>
+
+  <div class="cmd">
+    <h3>Publish Webtoons</h3>
+    <p class="meta">설명: Google Sheets의 웹툰 리스트를 읽어 정적 HTML을 생성하고 GitHub Pages에 배포합니다.</p>
+    <div>
+      <button onclick="copyToken('tok-publish')">토큰 복사</button>
+      <button onclick="revealToken('tok-publish', this)">토큰 표시</button>
+      <span id="tok-publish" data-token="SXE5aGExZERUZnpla1UzVnNHbjVlOWpqRUs2QmUyRU4=" class="token-value" style="margin-left:12px">••••••••••••••••</span>
+    </div>
+  </div>
+
+  <script>
+    function b64DecodeUnicode(str) {
+      try {
+        return decodeURIComponent(atob(str).split('').map(function(c) {
+          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+      } catch(e) { return atob(str); }
+    }
+    function copyToken(id){
+      var el = document.getElementById(id);
+      if(!el) return alert('토큰을 찾을 수 없습니다.');
+      var b64 = el.getAttribute('data-token');
+      var token = b64DecodeUnicode(b64);
+      navigator.clipboard.writeText(token).then(function(){ alert('토큰이 클립보드에 복사되었습니다.'); }, function(){ alert('복사에 실패했습니다.'); });
+    }
+    function revealToken(id, btn){
+      var el = document.getElementById(id);
+      if(!el) return;
+      if(el.textContent.trim()==='••••••••••••••••'){
+        var b64 = el.getAttribute('data-token');
+        el.textContent = b64DecodeUnicode(b64);
+        btn.textContent = '숨기기';
+      } else {
+        el.textContent = '••••••••••••••••';
+        btn.textContent = '토큰 표시';
+      }
+    }
+  </script>
+</body>
+</html>
